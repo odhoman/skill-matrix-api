@@ -11,35 +11,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.softvision.skill_matrix_api.model.Candidate;
-import com.softvision.skill_matrix_api.services.CandidateService;
+import com.softvision.skill_matrix_api.model.Consultant;
+import com.softvision.skill_matrix_api.services.ConsultantService;
 
 @RestController
-public class CandidateController {
-
+public class ConsultantController {
+	
 	@Autowired
-	private CandidateService service;
+	private ConsultantService service;
 
-	@GetMapping("/candidates/{id}")
-	public Candidate getCandidateById(@PathVariable Long id) {
-		return service.getCandidateById(id);
+	@GetMapping("/consultants/{id}")
+	public Consultant getConsultantById(@PathVariable Long id) {
+		return service.getConsultantById(id);
 	}
 
-	@PostMapping("/candidates")
-	public ResponseEntity<Object> createCandidate(@RequestBody Candidate candidate) {
-		Candidate savedCandidate = service.save(candidate);
+	@PostMapping("/consultants")
+	public ResponseEntity<Object> createConsultant(@RequestBody Consultant consultant) {
+		Consultant savedConsultant = service.save(consultant);
 
 		return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedCandidate.getId()).toUri()).build();
+				.buildAndExpand(savedConsultant.getId()).toUri()).build();
 	}
 	
-	@PutMapping("/candidates/{id}")
-	public void updateCandidate(@PathVariable Long id, @RequestBody Candidate candidate) {
-		service.update(id,candidate);
+	@PutMapping("/consultants/{id}")
+	public void updateConsultant(@PathVariable Long id, @RequestBody Consultant consultant) {
+		service.update(id,consultant);
 	}
 	
-	@DeleteMapping("/candidates/{id}")
-	public void deleteCandidate(@PathVariable Long id) {
+	@DeleteMapping("/consultants/{id}")
+	public void deleteConsultant(@PathVariable Long id) {
 		service.delete(id);
 	}
 

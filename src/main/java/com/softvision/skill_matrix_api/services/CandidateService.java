@@ -10,4 +10,6 @@ public interface CandidateService {
 	
 	public void update(Long id, Candidate candidate);
 	
+	public void delete(Long id);
+	
 }

@@ -21,8 +21,8 @@ public class CandidateServiceImpl implements CandidateService {
 	}
 
 	@Override
-	public Candidate save(Candidate user) {
-		return candidateRepository.save(user);
+	public Candidate save(Candidate candidate) {
+		return candidateRepository.save(candidate);
 	}
 
 	@Override
@@ -31,6 +31,11 @@ public class CandidateServiceImpl implements CandidateService {
 			candidate.setId(id);
 			return candidate;
 		}).orElseThrow(() -> new CandidateNotFoundException("Candidate Not Found")));
+	}
+
+	@Override
+	public void delete(Long id) {
+		candidateRepository.deleteById(id);
 	}
 
 }
