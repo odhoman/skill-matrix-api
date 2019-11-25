@@ -2,11 +2,14 @@ package com.softvision.skill_matrix_api.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,9 +30,11 @@ public class Candidate {
 	@Column(name = "Status")
 	private Long status;
 
-	@Column(name = "RecruiterId")
-	private Long recruiterId;
-
+	@OneToOne(cascade={CascadeType.MERGE,
+						CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="RecruiterId")
+	private Consultant consultant;
+	
 	@Column(name = "CreatedBy")
 	private String createdBy;
 
@@ -67,15 +72,14 @@ public class Candidate {
 		super();
 	}
 
-	public Candidate(Long version, Long dni, Long status, Long recruiterId, String createdBy, Date createdDate,
-			Date lastModifiedDate, String lastModifiedBy, String name, String lastName, String phoneNumber,
-			String emailAddress, String linkedInProfile, String additionalInformation, String englishLevel) {
+	public Candidate(Long version, Long dni, Long status, String createdBy, Date createdDate, Date lastModifiedDate,
+			String lastModifiedBy, String name, String lastName, String phoneNumber, String emailAddress,
+			String linkedInProfile, String additionalInformation, String englishLevel) {
 		super();
 
 		this.version = version;
 		this.dni = dni;
 		this.status = status;
-		this.recruiterId = recruiterId;
 		this.createdBy = createdBy;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
@@ -119,14 +123,6 @@ public class Candidate {
 
 	public void setStatus(Long status) {
 		this.status = status;
-	}
-
-	public Long getRecruiterId() {
-		return recruiterId;
-	}
-
-	public void setRecruiterId(Long recruiterId) {
-		this.recruiterId = recruiterId;
 	}
 
 	public String getCreatedBy() {
@@ -217,13 +213,22 @@ public class Candidate {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
+	public Consultant getConsultant() {
+		return consultant;
+	}
+
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
+	}
+
 	@Override
 	public String toString() {
-		return "Candidate [id=" + id + ", version=" + version + ", dni=" + dni + ", status=" + status + ", recruiterId="
-				+ recruiterId + ", createdBy=" + createdBy + ", lastModifiedBy=" + lastModifiedBy + ", name=" + name
-				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress
-				+ ", linkedInProfile=" + linkedInProfile + ", additionalInformation=" + additionalInformation
-				+ ", englishLevel=" + englishLevel + "]";
+		return "Candidate [id=" + id + ", version=" + version + ", dni=" + dni + ", status=" + status + ", consultant="
+				+ consultant + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedDate="
+				+ lastModifiedDate + ", lastModifiedBy=" + lastModifiedBy + ", name=" + name + ", lastName=" + lastName
+				+ ", phoneNumber=" + phoneNumber + ", emailAddress=" + emailAddress + ", linkedInProfile="
+				+ linkedInProfile + ", additionalInformation=" + additionalInformation + ", englishLevel="
+				+ englishLevel + "]";
 	}
 
 }
