@@ -17,8 +17,21 @@ import com.softvision.skill_matrix_api.services.CandidateService;
 @RestController
 public class CandidateController {
 
-	@Autowired
 	private CandidateService service;
+	
+	@Autowired
+	public CandidateController(CandidateService service) {
+		super();
+		this.service = service;
+	}
+
+	public CandidateService getService() {
+		return service;
+	}
+
+	public void setService(CandidateService service) {
+		this.service = service;
+	}
 
 	@GetMapping("/candidates/{id}")
 	public Candidate getCandidateById(@PathVariable Long id) {

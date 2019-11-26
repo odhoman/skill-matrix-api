@@ -17,8 +17,13 @@ import com.softvision.skill_matrix_api.services.ConsultantService;
 @RestController
 public class ConsultantController {
 	
-	@Autowired
 	private ConsultantService service;
+	
+	@Autowired
+	public ConsultantController(ConsultantService service) {
+		super();
+		this.service = service;
+	}
 
 	@GetMapping("/consultants/{id}")
 	public Consultant getConsultantById(@PathVariable Long id) {

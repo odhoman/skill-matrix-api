@@ -30,11 +30,10 @@ public class Candidate {
 	@Column(name = "Status")
 	private Long status;
 
-	@OneToOne(cascade={CascadeType.MERGE,
-						CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinColumn(name="RecruiterId")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinColumn(name = "RecruiterId")
 	private Consultant consultant;
-	
+
 	@Column(name = "CreatedBy")
 	private String createdBy;
 

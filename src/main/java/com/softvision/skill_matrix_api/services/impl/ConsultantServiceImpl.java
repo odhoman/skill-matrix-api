@@ -10,8 +10,13 @@ import com.softvision.skill_matrix_api.services.ConsultantService;
 @Service
 public class ConsultantServiceImpl implements ConsultantService {
 
-	@Autowired
 	private ConsultantRepository repository;
+
+	@Autowired
+	public ConsultantServiceImpl(ConsultantRepository repository) {
+		super();
+		this.repository = repository;
+	}
 
 	@Override
 	public Consultant getConsultantById(Long id) {

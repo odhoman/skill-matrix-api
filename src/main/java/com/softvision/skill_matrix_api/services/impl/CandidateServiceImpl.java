@@ -11,8 +11,13 @@ import com.softvision.skill_matrix_api.services.exceptions.CandidateServiceExcep
 @Service
 public class CandidateServiceImpl implements CandidateService {
 
-	@Autowired
 	private CandidateRepository candidateRepository;
+
+	@Autowired
+	public CandidateServiceImpl(CandidateRepository candidateRepository) {
+		super();
+		this.candidateRepository = candidateRepository;
+	}
 
 	@Override
 	public Candidate getCandidateById(Long id) throws CandidateServiceException {

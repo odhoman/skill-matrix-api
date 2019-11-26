@@ -155,4 +155,12 @@ public class Consultant {
 		this.additionalInformation = additionalInformation;
 	}
 
+	@Override
+	public String toString() {
+		return "Consultant [id=" + id + ", version=" + version + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", lastModifiedDate=" + lastModifiedDate + ", lastModifiedBy=" + lastModifiedBy
+				+ ", name=" + name + ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", emailAddress="
+				+ emailAddress + ", additionalInformation=" + additionalInformation + "]";
+	}
+
 }
