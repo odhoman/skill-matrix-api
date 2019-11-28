@@ -9,6 +9,7 @@ import java.util.Date;
 
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.softvision.skill_matrix_api.model.Consultant;
@@ -17,8 +18,8 @@ public class ConsultantControllerTest extends SkillMatrixTestBase {
 
 	@Test
 	public void testGetConsultantById() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/consultants/2").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(2))).andDo(print());
+		int id = 2;
+		performGetConsultant(id).andExpect(status().isOk()).andExpect(jsonPath("$.id", is(id))).andDo(print());
 	}
 
 	@Test
@@ -30,30 +31,26 @@ public class ConsultantControllerTest extends SkillMatrixTestBase {
 
 	@Test
 	public void testPostNewConsultant() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/consultants/")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(getConsultantTest()))
-				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().is(201))
-				.andDo(print());
+		mockMvc.perform(MockMvcRequestBuilders.post("/consultants/").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsBytes(getConsultantTest())).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().is(201)).andDo(print());
 	}
-	
+
 	@Test
 	public void testPutNewConsultant() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/consultants/")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(getConsultantTest()))
-				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().is(201))
-				.andDo(print());
+		int id = 2;
+		mockMvc.perform(MockMvcRequestBuilders.put("/consultants/" + id).contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsBytes(getConsultantTest())).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().is(200)).andDo(print());
+
+		performGetConsultant(id).andExpect(jsonPath("$.createdBy", is("createdBy")))
+				.andExpect(jsonPath("$.lastModifiedBy", is("lastModifiedBy"))).andDo(print());
 	}
-	
+
 	@Test
 	public void testDeleteConsultant() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/consultants/6")
-				.accept(MediaType.APPLICATION_JSON))
-				.andDo(print())
-				.andExpect(status().is(200));
+		mockMvc.perform(MockMvcRequestBuilders.delete("/consultants/6").accept(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().is(200));
 	}
 
 	public Consultant getConsultantTest() {
@@ -70,6 +67,10 @@ public class ConsultantControllerTest extends SkillMatrixTestBase {
 		c.setAdditionalInformation("aditional info");
 
 		return c;
+	}
+
+	private ResultActions performGetConsultant(int id) throws Exception {
+		return mockMvc.perform(MockMvcRequestBuilders.get("/consultants/" + id).accept(MediaType.APPLICATION_JSON));
 	}
 
 }
