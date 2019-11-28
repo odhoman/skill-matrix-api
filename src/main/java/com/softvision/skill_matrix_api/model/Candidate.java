@@ -2,7 +2,6 @@ package com.softvision.skill_matrix_api.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +29,9 @@ public class Candidate {
 	@Column(name = "Status")
 	private Long status;
 
-	//Read - Insert - Update only the RecruiterId on Candidates table
-	@OneToOne(cascade = { CascadeType.PERSIST })
+	//Gets de complete consultant data - Insert and Update only the RecruiterId on Candidates table
+	// By there is not cascading
+	@OneToOne
 	@JoinColumn(name = "RecruiterId")
 	private Consultant consultant;
 

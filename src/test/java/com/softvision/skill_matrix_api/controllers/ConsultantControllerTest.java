@@ -8,8 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Date;
 
 import org.junit.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.softvision.skill_matrix_api.model.Consultant;
 
@@ -20,41 +18,52 @@ public class ConsultantControllerTest extends SkillMatrixTestBase {
 	@Test
 	public void testGetConsultantById() throws Exception {
 		int id = 2;
-		performSimpleGetById(CONSULTANTS_PATH, id).andExpect(status().isOk()).andExpect(jsonPath("$.id", is(id)))
+		performSimpleGet(CONSULTANTS_PATH, id)
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id", is(id)))
 				.andDo(print());
 	}
 
 	@Test
 	public void testGetConsultantNotFound() throws Exception {
-		performSimpleGetById(CONSULTANTS_PATH, 9999).andExpect(status().is4xxClientError())
-				.andExpect(jsonPath("$.message", is("Consultant Not Found"))).andDo(print());
+		performSimpleGet(CONSULTANTS_PATH, 9999)
+				.andExpect(status().is4xxClientError())
+				.andExpect(jsonPath("$.message", is("Consultant Not Found")))
+				.andDo(print());
 	}
 
 	@Test
 	public void testPostNewConsultant() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post(CONSULTANTS_PATH).contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(getConsultantTest())).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().is(201)).andDo(print());
+		performSimplePost(CONSULTANTS_PATH, getConsultantTest())
+				.andExpect(status().is(201))
+				.andDo(print());
 	}
 
 	@Test
-	public void testPutNewConsultant() throws Exception {
+	public void testPutConsultant() throws Exception {
 		int id = 2;
-		mockMvc.perform(MockMvcRequestBuilders.put(CONSULTANTS_PATH + id).contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsBytes(getConsultantTest())).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().is(200)).andDo(print());
+		performSimplePut(CONSULTANTS_PATH + id,getConsultantTest())
+				.andExpect(status().is(200))
+				.andDo(print());
 
-		performSimpleGetById(CONSULTANTS_PATH, id).andExpect(jsonPath("$.createdBy", is("createdBy")))
-				.andExpect(jsonPath("$.lastModifiedBy", is("lastModifiedBy"))).andDo(print());
+		performSimpleGet(CONSULTANTS_PATH, id).andExpect(jsonPath("$.createdBy", is("createdBy")))
+				.andExpect(jsonPath("$.lastModifiedBy", is("lastModifiedBy")))
+				.andDo(print());
 	}
 
 	@Test
 	public void testDeleteConsultant() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/consultants/6").accept(MediaType.APPLICATION_JSON))
-				.andDo(print()).andExpect(status().is(200));
+		int id = 6;
+		performSimpleDelete(CONSULTANTS_PATH , id)
+				.andExpect(status().is(200))
+				.andDo(print());
+
+		performSimpleGet(CONSULTANTS_PATH, id)
+				.andExpect(status().is4xxClientError())
+				.andDo(print());
 	}
 
-	public static Consultant getConsultantTest() {
+	private Consultant getConsultantTest() {
 		Consultant c = new Consultant();
 		c.setVersion(5L);
 		c.setCreatedBy("createdBy");
