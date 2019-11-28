@@ -30,7 +30,8 @@ public class Candidate {
 	@Column(name = "Status")
 	private Long status;
 
-	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	//Read - Insert - Update only the RecruiterId on Candidates table
+	@OneToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "RecruiterId")
 	private Consultant consultant;
 
