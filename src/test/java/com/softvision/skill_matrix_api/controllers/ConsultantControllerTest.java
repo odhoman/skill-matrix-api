@@ -47,6 +47,14 @@ public class ConsultantControllerTest extends SkillMatrixTestBase {
 				.andExpect(status().is(201))
 				.andDo(print());
 	}
+	
+	@Test
+	public void testDeleteConsultant() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.delete("/consultants/6")
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().is(200));
+	}
 
 	public Consultant getConsultantTest() {
 		Consultant c = new Consultant();
