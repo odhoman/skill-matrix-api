@@ -52,21 +52,6 @@ public class Consultant {
 		super();
 	}
 
-	public Consultant(Long version, String createdBy, Date createdDate, Date lastModifiedDate, String lastModifiedBy,
-			String name, String lastName, String phoneNumber, String emailAddress, String additionalInformation) {
-		super();
-		this.version = version;
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.lastModifiedBy = lastModifiedBy;
-		this.name = name;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.emailAddress = emailAddress;
-		this.additionalInformation = additionalInformation;
-	}
-
 	public Long getId() {
 		return id;
 	}
