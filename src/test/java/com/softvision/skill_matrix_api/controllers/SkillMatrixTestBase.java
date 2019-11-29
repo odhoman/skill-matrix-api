@@ -37,24 +37,18 @@ public abstract class SkillMatrixTestBase {
 	
 	protected ResultActions performSimpleGet(String path, int id) throws Exception {
 		return performSimpleAction(MockMvcRequestBuilders.get(path + id));
-//		return mockMvc.perform(MockMvcRequestBuilders.get(path + id).accept(MediaType.APPLICATION_JSON));
 	}
 	
 	protected ResultActions performSimpleDelete(String path, int id) throws Exception {
 		return performSimpleAction(MockMvcRequestBuilders.delete(path + id));
-//		return mockMvc.perform(MockMvcRequestBuilders.get(path + id).accept(MediaType.APPLICATION_JSON));
 	}
 	
 	protected ResultActions performSimplePost(String path, Object o) throws Exception {
 		return performModificationAction(MockMvcRequestBuilders.post(path),o);
-//		return mockMvc.perform(MockMvcRequestBuilders.post(path).contentType(MediaType.APPLICATION_JSON)
-//				.content(objectMapper.writeValueAsBytes(o)).accept(MediaType.APPLICATION_JSON));
 	}
 	
 	protected ResultActions performSimplePut(String path,  Object o) throws Exception {
 		return performModificationAction(MockMvcRequestBuilders.put(path),o);
-//		return mockMvc.perform(MockMvcRequestBuilders.put(path).contentType(MediaType.APPLICATION_JSON)
-//				.content(objectMapper.writeValueAsBytes(o)).accept(MediaType.APPLICATION_JSON));
 	}
 	
 	protected ResultActions performSimpleAction(MockHttpServletRequestBuilder mHSRB) throws Exception {

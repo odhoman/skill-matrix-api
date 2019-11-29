@@ -30,7 +30,7 @@ public class Candidate {
 	private Long status;
 
 	//Gets de complete consultant data - Insert and Update only the RecruiterId on Candidates table
-	// By there is not cascading
+	//There is not cascading
 	@OneToOne
 	@JoinColumn(name = "RecruiterId")
 	private Consultant consultant;

@@ -6,9 +6,9 @@ public interface ConsultantService {
 
 	public abstract Consultant getConsultantById(Long id);
 
-	public abstract Consultant save(Consultant user);
+	public abstract Consultant save(Consultant consultant);
 
-	public void update(Long id, Consultant Consultant);
+	public void update(Long id, Consultant consultant);
 
 	public void delete(Long id);
 

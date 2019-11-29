@@ -1,8 +1,8 @@
 package com.softvision.skill_matrix_api.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,32 +51,32 @@ public class Process {
 	@Column(name = "RejectionReason")
 	private String rejectionReason;
 
-	//Read - Insert - Update only the RecruiterId on Candidates table
-	@OneToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "CandidateId")
-	private Candidate candidate;
-
-	//Read - Insert - Update only the ConsultantDelegateId on Consultants table
-	@OneToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "ConsultantOwnerId")
-	private Consultant consultantOwner;
-
-	//Read - Insert - Update only the ConsultantDelegateId on Consultants table
-	@OneToOne(cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "ConsultantDelegateId")
-	private Consultant consultantDelegate;
-
 	@Column(name = "ActualSalary")
-	private Double actualSalary;
+	private BigDecimal actualSalary;
 
 	@Column(name = "WantedSalary")
-	private Double wantedSalary;
+	private BigDecimal wantedSalary;
 
 	@Column(name = "EnglishLevel")
 	private String englishLevel;
 
 	@Column(name = "Seniority")
 	private String seniority;
+
+	// Read - Insert - Update only the RecruiterId on Candidates table
+	@OneToOne
+	@JoinColumn(name = "CandidateId")
+	private Candidate candidate;
+
+	// Read - Insert - Update only the ConsultantDelegateId on Consultants table
+	@OneToOne
+	@JoinColumn(name = "ConsultantOwnerId")
+	private Consultant consultantOwner;
+
+	// Read - Insert - Update only the ConsultantDelegateId on Consultants table
+	@OneToOne
+	@JoinColumn(name = "ConsultantDelegateId")
+	private Consultant consultantDelegate;
 
 	public Long getId() {
 		return id;
@@ -174,19 +174,19 @@ public class Process {
 		this.candidate = candidate;
 	}
 
-	public Double getActualSalary() {
+	public BigDecimal getActualSalary() {
 		return actualSalary;
 	}
 
-	public void setActualSalary(Double actualSalary) {
+	public void setActualSalary(BigDecimal actualSalary) {
 		this.actualSalary = actualSalary;
 	}
 
-	public Double getWantedSalary() {
+	public BigDecimal getWantedSalary() {
 		return wantedSalary;
 	}
 
-	public void setWantedSalary(Double wantedSalary) {
+	public void setWantedSalary(BigDecimal wantedSalary) {
 		this.wantedSalary = wantedSalary;
 	}
 
