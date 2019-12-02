@@ -2,6 +2,7 @@ package com.softvision.skill_matrix_api.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -77,6 +79,9 @@ public class Process {
 	@OneToOne
 	@JoinColumn(name = "ConsultantDelegateId")
 	private Consultant consultantDelegate;
+	
+	@OneToMany(mappedBy = "process")
+	private List<Stage> stages;
 
 	public Long getId() {
 		return id;
@@ -220,6 +225,25 @@ public class Process {
 
 	public void setConsultantDelegate(Consultant consultantDelegate) {
 		this.consultantDelegate = consultantDelegate;
+	}
+	
+	public List<Stage> getStages() {
+		return stages;
+	}
+
+	public void setStages(List<Stage> stages) {
+		this.stages = stages;
+	}
+
+	@Override
+	public String toString() {
+		return "Process [id=" + id + ", version=" + version + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", lastModifiedDate=" + lastModifiedDate + ", lastModifiedBy=" + lastModifiedBy
+				+ ", endDate=" + endDate + ", startDate=" + startDate + ", status=" + status + ", profile=" + profile
+				+ ", rejectionReason=" + rejectionReason + ", actualSalary=" + actualSalary + ", wantedSalary="
+				+ wantedSalary + ", englishLevel=" + englishLevel + ", seniority=" + seniority + ", candidate="
+				+ candidate + ", consultantOwner=" + consultantOwner + ", consultantDelegate=" + consultantDelegate
+				+ ", processes=" + stages + "]";
 	}
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.softvision.skill_matrix_api.services.impl.CandidateNotFoundException;
 import com.softvision.skill_matrix_api.services.impl.ConsultantNotFoundException;
 import com.softvision.skill_matrix_api.services.impl.ProcessNotFoundException;
+import com.softvision.skill_matrix_api.services.impl.StageNotFoundException;
 
 @ControllerAdvice
 @RestController
@@ -27,24 +28,9 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@ExceptionHandler(CandidateNotFoundException.class)
-	public final ResponseEntity<Object> handleCandidateNotFoundException(CandidateNotFoundException ex,
-			WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
-				request.getDescription(false));
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-	}
-	
-	@ExceptionHandler(ConsultantNotFoundException.class)
-	public final ResponseEntity<Object> handleConsultantNotFoundException(ConsultantNotFoundException ex,
-			WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
-				request.getDescription(false));
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-	}
-	
-	@ExceptionHandler(ProcessNotFoundException.class)
-	public final ResponseEntity<Object> handleConsultantNotFoundException(ProcessNotFoundException ex,
+	@ExceptionHandler({ CandidateNotFoundException.class, ProcessNotFoundException.class, StageNotFoundException.class,
+			ConsultantNotFoundException.class })
+	public final ResponseEntity<Object> handleNotFoundException(Exception ex,
 			WebRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
 				request.getDescription(false));

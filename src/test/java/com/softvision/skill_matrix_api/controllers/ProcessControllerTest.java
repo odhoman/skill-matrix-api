@@ -13,10 +13,13 @@ import org.junit.Test;
 import com.softvision.skill_matrix_api.model.Candidate;
 import com.softvision.skill_matrix_api.model.Consultant;
 import com.softvision.skill_matrix_api.model.Process;
+import com.softvision.skill_matrix_api.model.Stage;
 
 public class ProcessControllerTest extends SkillMatrixTestBase {
 
 	private static final String PROCESSES_PATH = "/processes/";
+	
+	private static final String STAGES_PATH = "/stages/";
 	
 	@Test
 	public void testProcessById() throws Exception {
@@ -59,6 +62,44 @@ public class ProcessControllerTest extends SkillMatrixTestBase {
 				.andExpect(status().is4xxClientError()).andDo(print());
 	}
 	
+	@Test
+	public void testPostNewStageProcess() throws Exception {
+		performSimplePost(PROCESSES_PATH+1+STAGES_PATH, getStageTest())
+				.andExpect(status().is(201)).andDo(print());
+	}
+	
+	@Test
+	public void testPutStageByProcessIdAndStageId() throws Exception {
+		int processId = 5;
+		int stageId = 1;
+		performSimplePut(PROCESSES_PATH + processId + STAGES_PATH + stageId, getStageTest())
+				.andExpect(status().is(200)).andDo(print());
+		
+		performSimpleGet(PROCESSES_PATH + processId + STAGES_PATH + stageId)
+			.andExpect(jsonPath("$.id", is(stageId)))
+			.andExpect(jsonPath("$.feedback", is("feedback")))
+			.andExpect(jsonPath("$.process.id", is(processId)))
+			.andExpect(jsonPath("$.createdBy", is("createdBy")))
+			.andExpect(jsonPath("$.lastModifiedBy", is("lastModifiedBy")))
+			.andDo(print());
+	}
+	
+	private Stage getStageTest() {
+		
+		Stage p = new Stage();
+		
+		p.setCreatedBy("createdBy");
+		p.setCreatedDate(new Date());
+		p.setLastModifiedBy("lastModifiedBy");
+		p.setLastModifiedDate(new Date());
+		p.setStatus(3L);
+		p.setVersion(1L);
+		p.setFeedback("feedback");
+		p.setType(4L);
+		p.setDate(new Date());
+
+		return p;
+	}
 	
 	private Process getProcessTest() {
 
