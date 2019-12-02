@@ -57,7 +57,7 @@ public class ProcessServiceImpl implements ProcessService {
 
 	@Override
 	public void updateStageByProcessIdAndStageId(Long processId, Stage stage, Long stageId) {
-		stage.setProcess(getStageByProcessIdStageId(processId, stageId).getProcess());
+		stage.setProcess(getStageByProcessIdAndStageId(processId, stageId).getProcess());
 		stage.setId(stageId);
 		stageRepository.save(stage);
 	}
@@ -69,7 +69,7 @@ public class ProcessServiceImpl implements ProcessService {
 	}
 	
 	@Override
-	public Stage getStageByProcessIdStageId(Long processId, Long stageId) {
+	public Stage getStageByProcessIdAndStageId(Long processId, Long stageId) {
 		getProcessById(processId);
 		return stageRepository.findById(stageId).orElseThrow(() -> new StageNotFoundException("Stage Not Found"));
 	}

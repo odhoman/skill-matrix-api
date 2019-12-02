@@ -23,6 +23,6 @@ public interface ProcessService {
 	
 	public void deleteStageByProcessIdAndStageId(Long processId, Long stageId);
 	
-	public Stage getStageByProcessIdStageId(Long processId, Long stageId);
+	public Stage getStageByProcessIdAndStageId(Long processId, Long stageId);
 
 }

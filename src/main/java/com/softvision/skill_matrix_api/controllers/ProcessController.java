@@ -58,7 +58,7 @@ public class ProcessController {
 
 	@GetMapping("/processes/{processId}/stages/{stageId}")
 	public Stage getStageByProcessId(@PathVariable Long processId, @PathVariable Long stageId) {
-		return service.getStageByProcessIdStageId(processId,stageId);
+		return service.getStageByProcessIdAndStageId(processId,stageId);
 	}
 
 	@PostMapping("/processes/{processId}/stages")
