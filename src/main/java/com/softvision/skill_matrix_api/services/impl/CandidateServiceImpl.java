@@ -1,9 +1,13 @@
 package com.softvision.skill_matrix_api.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.softvision.skill_matrix_api.model.Candidate;
+import com.softvision.skill_matrix_api.model.Consultant;
 import com.softvision.skill_matrix_api.repositories.CandidateRepository;
 import com.softvision.skill_matrix_api.services.CandidateService;
 import com.softvision.skill_matrix_api.services.exceptions.CandidateServiceException;
@@ -40,7 +44,19 @@ public class CandidateServiceImpl implements CandidateService {
 
 	@Override
 	public void delete(Long id) {
+		getCandidateById(id);
 		candidateRepository.deleteById(id);
+	}
+	
+	@Override
+	public List<Candidate> getCandidatesByConsultantId(Long consultantId){
+		
+		Consultant con = new Consultant();
+		con.setId(consultantId);
+		Candidate candidate = new Candidate();
+		candidate.setConsultant(con);
+		
+		return candidateRepository.findAll(Example.of(candidate));
 	}
 
 }

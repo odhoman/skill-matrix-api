@@ -1,5 +1,7 @@
 package com.softvision.skill_matrix_api.services;
 
+import java.util.List;
+
 import com.softvision.skill_matrix_api.model.Candidate;
 
 public interface CandidateService {
@@ -11,5 +13,7 @@ public interface CandidateService {
 	public void update(Long id, Candidate candidate);
 	
 	public void delete(Long id);
+	
+	public List<Candidate> getCandidatesByConsultantId(Long recruiteId);
 	
 }

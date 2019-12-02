@@ -21,7 +21,7 @@ public class ProcessControllerTest extends SkillMatrixTestBase {
 	@Test
 	public void testProcessById() throws Exception {
 		int id = 1;
-		performSimpleGet(PROCESSES_PATH, id)
+		performSimpleGet(PROCESSES_PATH + id)
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", is(id)))
 				.andExpect(jsonPath("$.candidate.createdBy", is("2e2e2e2e2e2e2")))
@@ -43,7 +43,7 @@ public class ProcessControllerTest extends SkillMatrixTestBase {
 		performSimplePut(PROCESSES_PATH + id, getProcessTest())
 				.andExpect(status().is(200)).andDo(print());
 		
-		performSimpleGet(PROCESSES_PATH, id)
+		performSimpleGet(PROCESSES_PATH + id)
 			.andExpect(jsonPath("$.id", is(id)))
 			.andExpect(jsonPath("$.candidate.createdBy", is("Creater")))
 			.andExpect(jsonPath("$.consultantOwner.name", is("Consultant Name 2")))
@@ -53,9 +53,9 @@ public class ProcessControllerTest extends SkillMatrixTestBase {
 	@Test
 	public void testDeleteProcess() throws Exception {
 		int id = 3;
-		performSimpleDelete(PROCESSES_PATH, id).andDo(print())
+		performSimpleDelete(PROCESSES_PATH , id).andDo(print())
 				.andExpect(status().is(200));
-		performSimpleGet(PROCESSES_PATH, id)
+		performSimpleGet(PROCESSES_PATH + id)
 				.andExpect(status().is4xxClientError()).andDo(print());
 	}
 	

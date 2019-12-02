@@ -14,12 +14,12 @@ import com.softvision.skill_matrix_api.model.Consultant;
 
 public class CandidateControllerTest extends SkillMatrixTestBase {
 
-	private static final String CANDIDATES_PATH = "/candidates/";
+	public static final String CANDIDATES_PATH = "/candidates/";
 
 	@Test
 	public void testGetCandidateById() throws Exception {
 		int id = 19;
-		performSimpleGet(CANDIDATES_PATH, id)
+		performSimpleGet(CANDIDATES_PATH + id)
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", is(id)))
 				.andExpect(jsonPath("$.consultant.createdBy", is("Creator"))).andDo(print());
@@ -36,7 +36,7 @@ public class CandidateControllerTest extends SkillMatrixTestBase {
 		int id = 23;
 		performSimplePut(CANDIDATES_PATH + id, getCandidateTest())
 				.andExpect(status().is(200)).andDo(print());
-		performSimpleGet(CANDIDATES_PATH, id)
+		performSimpleGet(CANDIDATES_PATH + id)
 				.andExpect(jsonPath("$.createdBy", is("createdBy")))
 				.andExpect(jsonPath("$.lastName", is("lastName")))
 				.andExpect(jsonPath("$.consultant.name", is("Consultant Name 2"))).andDo(print());
@@ -45,9 +45,9 @@ public class CandidateControllerTest extends SkillMatrixTestBase {
 	@Test
 	public void testDeleteCandidate() throws Exception {
 		int id = 23;
-		performSimpleDelete(CANDIDATES_PATH, id).andDo(print())
+		performSimpleDelete(CANDIDATES_PATH , id).andDo(print())
 				.andExpect(status().is(200));
-		performSimpleGet(CANDIDATES_PATH, id)
+		performSimpleGet(CANDIDATES_PATH + id)
 				.andExpect(status().is4xxClientError()).andDo(print());
 	}
 

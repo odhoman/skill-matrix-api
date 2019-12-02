@@ -35,8 +35,8 @@ public abstract class SkillMatrixTestBase {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 	
-	protected ResultActions performSimpleGet(String path, int id) throws Exception {
-		return performSimpleAction(MockMvcRequestBuilders.get(path + id));
+	protected ResultActions performSimpleGet(String path) throws Exception {
+		return performSimpleAction(MockMvcRequestBuilders.get(path));
 	}
 	
 	protected ResultActions performSimpleDelete(String path, int id) throws Exception {
