@@ -56,7 +56,7 @@ public class ConsultantController {
 	}
 
 	@GetMapping("/consultants/{consultanId}/candidates")
-	public List<Candidate> getCandidateByRecruiteId(@PathVariable Long consultanId) {
+	public List<Candidate> getCandidatesByRecruiteId(@PathVariable Long consultanId) {
 		return candidateService.getCandidatesByConsultantId(consultanId);
 	}
 
